@@ -1,7 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { apiFetch } from '../actions/api';
+import { searchInputPost } from '../apicalls/twitchapi';
 
 const SearchItem = ({text, link, logo = ""}) => {
   return (
@@ -45,9 +45,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  const url = "http://localhost:3000";
   return {
-    apiRequest: (value) => dispatch(apiFetch(axios.post(url + "/searchchannel", {inputtext: value})))
+    apiRequest: (value) => dispatch(apiFetch(searchInputPost(value)))
   }
 }
 

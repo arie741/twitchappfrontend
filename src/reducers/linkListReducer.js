@@ -5,15 +5,15 @@ const initialState = {
 	error: null
 }
 
-const apiReducer = (state = initialState, action) => {
+const linkListReducer = (state = initialState, action) => {
 	switch(action.type){
-		case 'FETCH_PENDING':
+		case 'FETCH_LINKS_PENDING':
 			return Object.assign({...state}, {fetching: true});
 		    break;
-		case 'FETCH_FULFILLED':
+		case 'FETCH_LINKS_FULFILLED':
 			return Object.assign({...state}, {fetching: false}, {fetched: true}, {payload: action.payload});
 			break;
-		case 'FETCH_REJECTED':
+		case 'FETCH_LINKS_REJECTED':
 			return  Object.assign({...state}, {fetching: false}, {payload: action.payload}, {error:true})
 			break;
 		default:
@@ -22,4 +22,4 @@ const apiReducer = (state = initialState, action) => {
 	}
 }
 
-export default apiReducer;
+export default linkListReducer;
