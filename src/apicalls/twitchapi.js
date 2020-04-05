@@ -9,3 +9,7 @@ export const searchInputPost = inputText => {
 export const getLinkList = () => {
 	return axios.get(url + "/getlinks")
 }
+
+export const inputLink = (inputUrl) => {
+	axios.post(url + "/linkinput", {link: inputUrl})
+}

@@ -8,7 +8,7 @@ class LinkList extends React.Component  {
 		super(props);
 	}
 
-	componentDidMount(){
+	componentWillMount(){
 		this.props.linkRequest();
 	}
 
@@ -40,5 +40,14 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+const LinksContainer = props => {
+	const { linkList, linkRequest } = props
+	return (
+			<div id="link_list">
+				<LinkList linkList={linkList} linkRequest={linkRequest}/>
+			</div>
+		)
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LinkList);
+
+export default connect(mapStateToProps, mapDispatchToProps)(LinksContainer);

@@ -1,13 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { apiFetch } from '../actions/api';
-import { searchInputPost } from '../apicalls/twitchapi';
-
-const SearchItem = ({text, link, logo = ""}) => {
-  return (
-      <li><img src={logo} alt=""/><a href={link}>{text}</a></li>
-    );
-}
+import { searchInputPost, inputLink } from '../apicalls/twitchapi';
 
 const SearchResults = (props) => {
 let fetchStatus = props.responseHandle;
@@ -21,11 +15,9 @@ let fetchStatus = props.responseHandle;
         <ul id="search_results">
           {responsePayload.data === undefined ? "" : 
               responsePayload.data.channels.map((channel, index) => 
-              <SearchItem 
-                key={index} 
-                text={channel.display_name} 
-                link={channel.url}
-                logo={channel.logo} />
+              <li key={index} onClick={() => props.inputPost(channel.url)}>
+                <img src={channel.logo} alt=""/>{channel.display_name}
+              </li>
             )}
         </ul>
       )
@@ -46,7 +38,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    apiRequest: (value) => dispatch(apiFetch(searchInputPost(value)))
+    apiRequest: (value) => dispatch(apiFetch(searchInputPost(value))),
+    linkInput: (url) => dispatch(apiFetch(inputLink(url)))
   }
 }
 
@@ -54,7 +47,7 @@ const SearchContainer = (props) => {
   return (
       <div id="search_component">
         <SearchInput inputHandle={props.apiRequest}/>
-        <SearchResults responseHandle={props.apiResponse}/>
+        <SearchResults responseHandle={props.apiResponse} inputPost={props.linkInput}/>
       </div>
     )
 }
